@@ -3,20 +3,21 @@ import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDGvmotPpg96WElnbhaFvFJ75Efso8KGfs",
-  authDomain: "auth-project-venus.firebaseapp.com",
-  databaseURL: "http://localhost:9000/?ns=project-id-default-rtdb",
-  projectId: "auth-project-venus",
-  storageBucket: "auth-project-venus.appspot.com",
-  messagingSenderId: "434323068391",
-  appId: "1:434323068391:web:16ba396ec5dd439b975942",
-  measurementId: "G-JV69628VPJ",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.measurementId,
 };
 
-const app = initializeApp(firebaseConfig);
-// export const auth = getAuth(app);
+initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getDatabase();
 
-connectAuthEmulator(auth, "http://localhost:9099");
-connectDatabaseEmulator(db, "localhost", 9000);
+if (process.env.NODE_ENV !== "production") {
+  connectAuthEmulator(auth, "http://localhost:9099");
+  connectDatabaseEmulator(db, "localhost", 9000);
+}

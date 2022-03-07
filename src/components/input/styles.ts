@@ -9,5 +9,5 @@ export const InputComponent = styled.input`
   outline: 0;
   padding: 18px 0 18px 18px;
   margin: 10px 0;
-  width: calc(100% - 18px);
+  width: 100%;
 `;
